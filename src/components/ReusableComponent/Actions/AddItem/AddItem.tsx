@@ -10,8 +10,8 @@ import {
     FormField,
     TextInput,
 } from "grommet";
-import { newItem } from "../../../../api";
-import { User } from "../../../../api/data.types";
+import { User, newItem } from "../../../../api";
+
 
 export const AddItem = () => {
     const [open, setOpen] = React.useState<boolean | undefined>(false);
@@ -21,7 +21,7 @@ export const AddItem = () => {
     const onClose = () => setOpen(undefined);
 
     return (
-        <Box justify="center">
+        <Box justify="center" >
             <Button icon={<Add />} label="Add item" onClick={onOpen} />
             {open && (
                 <Layer

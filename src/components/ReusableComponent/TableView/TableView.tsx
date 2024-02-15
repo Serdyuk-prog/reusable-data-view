@@ -11,9 +11,9 @@ import {
     Pagination,
     Toolbar,
 } from "grommet";
-import { User } from "../../../api/data.types";
 import { AddItem, ShowItem } from "../Actions";
 import React from "react";
+import { User } from "../../../api";
 
 const properties = {
     name: { label: "Name", search: true },
@@ -50,7 +50,9 @@ export const TableView: React.FC<TableViewProps> = ({
     actionButtons,
     showFilters,
 }) => {
-    const [isModalOpen, setIsModalOpen] = React.useState<boolean | undefined>(false);
+    const [isModalOpen, setIsModalOpen] = React.useState<boolean | undefined>(
+        false
+    );
     const [clicked, setClicked] = React.useState<User>();
 
     const actionButton = actionButtons && <AddItem />;
@@ -59,7 +61,7 @@ export const TableView: React.FC<TableViewProps> = ({
         <Box pad="large" gap="medium">
             <Grid
                 pad="large"
-                columns={[["small", "large"]]}
+                columns={[["large", "large", "large"]]}
                 justifyContent="center"
                 gap="large"
             >
@@ -68,7 +70,9 @@ export const TableView: React.FC<TableViewProps> = ({
                         <>
                             <Box direction="row">
                                 <Toolbar>
-                                    <DataSearch />
+                                    <DataSearch
+                                        id={`show-number-${new Date().getTime()}`}
+                                    />
                                     <DataFilters layer />
                                 </Toolbar>
                                 {actionButton}
@@ -109,7 +113,11 @@ export const TableView: React.FC<TableViewProps> = ({
                     )}
                 </Data>
             </Grid>
-            <ShowItem user={clicked as User} open={isModalOpen} setOpen={setIsModalOpen} />
+            <ShowItem
+                user={clicked as User}
+                open={isModalOpen}
+                setOpen={setIsModalOpen}
+            />
         </Box>
     );
 };

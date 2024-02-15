@@ -1,4 +1,4 @@
-import { Box, Button, Text } from "grommet";
+import { Box, Button } from "grommet";
 import { View } from "grommet-icons";
 import { User } from "../../../../api/data.types";
 import React from "react";
@@ -16,13 +16,9 @@ export const ShowItemButton: React.FC<ShowItemButtonProps> = ({ user }) => {
             <Box align="end" justify="end">
                 <Button
                     icon={<View />}
-                    label={
-                        <Text>
-                            <strong>View</strong>
-                        </Text>
-                    }
+                    label="View"
                     onClick={() => setOpen(true)}
-                    plain
+                    size="small"
                 />
             </Box>
 

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, ReactNode } from "react";
 import { CardView } from "./CardView";
-import { User } from "../../api/data.types";
-import { getData } from "../../api";
+
+import { User, getData } from "../../api";
 import { TableView } from "./TableView";
 
 interface ReusableComponentProps {

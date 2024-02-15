@@ -3,8 +3,7 @@ import React from "react";
 import { Trash } from "grommet-icons";
 
 import { Box, Button, Heading, Layer, Text } from "grommet";
-import { User } from "../../../../api/data.types";
-import { deleteItem } from "../../../../api";
+import { deleteItem, User } from "../../../../api";
 
 interface DeleteItemProps {
     user: User;
@@ -19,16 +18,12 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({ user }) => {
 
     return (
         <>
-            <Box align="end" justify="center">
+            <Box align="end" justify="end">
                 <Button
                     icon={<Trash />}
-                    label={
-                        <Text>
-                            <strong>Remove</strong>
-                        </Text>
-                    }
+                    label="Remove"
                     onClick={onOpen}
-                    plain
+                    size="small"
                 />
             </Box>
             {open && (

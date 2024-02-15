@@ -19,8 +19,18 @@ function App() {
                 <Text size="large">Demo</Text>
             </AppBar>
 
-            {/* <ReusableComponent cardView/> */}
-            <ReusableComponent tableView />
+            <ReusableComponent
+                cardView
+                showPagination
+                actionButtons
+                showFilters
+            />
+            <ReusableComponent
+                tableView
+                showPagination
+                actionButtons
+                showFilters
+            />
         </Grommet>
     );
 }

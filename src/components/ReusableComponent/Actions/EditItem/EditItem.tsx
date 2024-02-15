@@ -9,10 +9,8 @@ import {
     Heading,
     FormField,
     TextInput,
-    Text,
 } from "grommet";
-import { editItem } from "../../../../api";
-import { User } from "../../../../api/data.types";
+import { editItem, User } from "../../../../api";
 
 interface EditItemProps {
     user: User;
@@ -26,17 +24,13 @@ export const EditItem: React.FC<EditItemProps> = ({ user }) => {
     const onClose = () => setOpen(undefined);
 
     return (
-        <Box justify="center">
-            <Box align="end" justify="center">
+        <>
+            <Box align="end" justify="end">
                 <Button
                     icon={<Edit />}
-                    label={
-                        <Text>
-                            <strong>Edit</strong>
-                        </Text>
-                    }
+                    label="Edit"
                     onClick={onOpen}
-                    plain
+                    size="small"
                 />
             </Box>
             {open && (
@@ -68,7 +62,7 @@ export const EditItem: React.FC<EditItemProps> = ({ user }) => {
                         >
                             <Box flex={false} direction="row" justify="between">
                                 <Heading level={2} margin="none">
-                                    Add new item
+                                    Edit item
                                 </Heading>
                                 <Button icon={<Close />} onClick={onClose} />
                             </Box>
@@ -129,6 +123,6 @@ export const EditItem: React.FC<EditItemProps> = ({ user }) => {
                     </Box>
                 </Layer>
             )}
-        </Box>
+        </>
     );
 };

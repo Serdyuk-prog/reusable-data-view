@@ -1,14 +1,9 @@
 import React from "react";
-import {
-    Box,
-    Button,
-    Heading,
-    Layer,
-    Text,
-} from "grommet";
-import { User } from "../../../../api/data.types";
+import { Box, Button, Heading, Layer, Text } from "grommet";
+
 import { DeleteItem } from "../DeleteItem";
 import { EditItem } from "../EditItem";
+import { User } from "../../../../api";
 
 interface ShowItemProps {
     user: User;
@@ -37,10 +32,12 @@ export const ShowItem: React.FC<ShowItemProps> = ({ user, open, setOpen }) => {
                         <Text>Username: {user.username}</Text>
                         <Text>Email: {user.email}</Text>
                         <Box
-                            align="end"
-                            pad="medium"
+                            as="footer"
+                            gap="small"
                             direction="row"
-                            gap="medium"
+                            align="center"
+                            justify="end"
+                            pad={{ top: "medium", bottom: "small" }}
                         >
                             <DeleteItem user={user} />
                             <EditItem user={user} />
