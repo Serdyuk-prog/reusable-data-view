@@ -25,12 +25,7 @@ function App() {
                 actionButtons
                 showFilters
             />
-            <ReusableComponent
-                tableView
-                showPagination
-                actionButtons
-                showFilters
-            />
+            <ReusableComponent tableView showPagination actionButtons />
         </Grommet>
     );
 }
