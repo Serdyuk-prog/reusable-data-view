@@ -19,7 +19,7 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({ user }) => {
 
     return (
         <>
-            <Box fill align="end" justify="center">
+            <Box align="end" justify="center">
                 <Button
                     icon={<Trash />}
                     label={
@@ -33,7 +33,7 @@ export const DeleteItem: React.FC<DeleteItemProps> = ({ user }) => {
             </Box>
             {open && (
                 <Layer
-                    id="hello world"
+                    id={user.id.toString()}
                     position="center"
                     onClickOutside={onClose}
                     onEsc={onClose}

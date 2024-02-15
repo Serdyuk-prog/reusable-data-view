@@ -13,7 +13,7 @@ import {
     Toolbar,
 } from "grommet";
 import { User } from "../../../api/data.types";
-import { AddItem, DeleteItem, EditItem } from "../Actions";
+import { AddItem, DeleteItem, EditItem, ShowItemButton } from "../Actions";
 
 interface CardGridProps {
     showPagination?: boolean;
@@ -53,11 +53,13 @@ export const CardView: React.FC<CardGridProps> = ({
                             </CardBody>
                             <CardFooter>{item.email || "--"}</CardFooter>
                             <Box
-                                align="end"
+                                align="center"
+                                justify="end"
                                 pad="medium"
                                 direction="row"
                                 gap="medium"
                             >
+                                <ShowItemButton user={item} />
                                 <DeleteItem user={item} />
                                 <EditItem user={item} />
                             </Box>

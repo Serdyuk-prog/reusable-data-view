@@ -27,8 +27,7 @@ export const EditItem: React.FC<EditItemProps> = ({ user }) => {
 
     return (
         <Box justify="center">
-            {/* <Button icon={} label="Edit item" onClick={onOpen} /> */}
-            <Box fill align="end" justify="center">
+            <Box align="end" justify="center">
                 <Button
                     icon={<Edit />}
                     label={
