@@ -1,21 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
 
 import {
     Box,
-    Card,
-    CardBody,
-    CardFooter,
-    Cards,
     Data,
     DataFilters,
     DataSearch,
     DataSummary,
     DataTable,
     Grid,
-    Heading,
     Pagination,
-    Text,
     Toolbar,
 } from "grommet";
 import { User } from "../../../api/data.types";
@@ -51,22 +44,6 @@ export const TableView: React.FC<TableViewProps> = ({
     showPagination = true,
     data,
 }) => {
-    const [currentData, setCurrentData] = useState<User[]>([]);
-    const [indices, setIndices] = useState([0, 5]);
-
-    useEffect(() => {
-        setCurrentData(data.slice(0, 5));
-        if (!showPagination) {
-            setCurrentData(data);
-        }
-    }, [data, showPagination]);
-
-    const handleChange = ({ startIndex, endIndex }) => {
-        const nextData = data.slice(startIndex, endIndex);
-        setCurrentData(nextData);
-        setIndices([startIndex, Math.min(endIndex, data.length)]);
-    };
-
     return (
         <Box pad="large" gap="medium">
             <Grid
@@ -75,7 +52,7 @@ export const TableView: React.FC<TableViewProps> = ({
                 justifyContent="center"
                 gap="large"
             >
-                <Data data={currentData} properties={properties}>
+                <Data data={data} properties={properties}>
                     <Toolbar>
                         <DataSearch />
                         <DataFilters layer />
@@ -85,20 +62,13 @@ export const TableView: React.FC<TableViewProps> = ({
                         columns={columns}
                         verticalAlign={{ body: "top" }}
                     />
+                    <Pagination
+                        step={5}
+                        alignSelf="center"
+                        margin={{ top: "medium" }}
+                    />
                 </Data>
             </Grid>
-            {showPagination && (
-                <Box align="center" direction="row" justify="between">
-                    <Text>
-                        Showing {indices[0] + 1} - {indices[1]} of {data.length}
-                    </Text>
-                    <Pagination
-                        numberItems={data.length}
-                        onChange={handleChange}
-                        step={5}
-                    />
-                </Box>
-            )}
         </Box>
     );
 };
