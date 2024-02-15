@@ -1,26 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 
-import { Box, Card, CardBody, CardFooter, Cards, Data, Grid, Heading, Pagination, Text } from "grommet";
-import { DATA } from "../../../data";
-
-const data = DATA;
+import {
+    Box,
+    Card,
+    CardBody,
+    CardFooter,
+    Cards,
+    Data,
+    Grid,
+    Heading,
+    Pagination,
+    Text,
+} from "grommet";
+import { User } from "../../../api/data.types";
 
 interface CardGridProps {
     showPagination?: boolean;
+    data: User[];
 }
 
 export const CardView: React.FC<CardGridProps> = ({
     showPagination = true,
+    data,
 }) => {
-    const [currentData, setCurrentData] = useState(data.slice(0, 10));
-    const [indices, setIndices] = useState([0, 10]);
+    const [currentData, setCurrentData] = useState<User[]>([]);
+    const [indices, setIndices] = useState([0, 5]);
 
     useEffect(() => {
+        setCurrentData(data.slice(0, 5));
         if (!showPagination) {
             setCurrentData(data);
         }
-    }, [showPagination]);
+    }, [data, showPagination]);
 
     const handleChange = ({ startIndex, endIndex }) => {
         const nextData = data.slice(startIndex, endIndex);
@@ -33,13 +45,13 @@ export const CardView: React.FC<CardGridProps> = ({
             <Data data={currentData} toolbar>
                 <Cards size="medium">
                     {(item) => (
-                        <Card key={item.name} pad="small">
+                        <Card key={item.id} pad="small">
                             <CardBody>
                                 <Heading level={2} margin="none">
                                     {item.name}
                                 </Heading>
                             </CardBody>
-                            <CardFooter>{item.location || "--"}</CardFooter>
+                            <CardFooter>{item.email || "--"}</CardFooter>
                         </Card>
                     )}
                 </Cards>
@@ -52,6 +64,7 @@ export const CardView: React.FC<CardGridProps> = ({
                     <Pagination
                         numberItems={data.length}
                         onChange={handleChange}
+                        step={5}
                     />
                 </Box>
             )}

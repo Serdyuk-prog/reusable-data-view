@@ -19,10 +19,10 @@ import {
 } from "grommet";
 import { Moon, Sun } from "grommet-icons";
 import { deepMerge } from "grommet/utils";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 import { ReusableComponent } from "./components/ReusableComponent";
-
+import getData from "./api/data-crud";
 
 const AppBar = (props: JSX.IntrinsicAttributes & HeaderExtendedProps) => (
     <Header
@@ -59,6 +59,7 @@ const CardTemplate: FC<{ title: string }> = ({ title }) => {
 
 function App() {
     const [dark, setDark] = useState(false);
+
     return (
         <Grommet theme={theme} full themeMode={dark ? "dark" : "light"}>
             <AppBar>
