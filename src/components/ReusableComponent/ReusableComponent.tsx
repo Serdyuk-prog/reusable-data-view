@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import getData from "../../api/data-crud";
 import { CardView } from "./CardView";
 import { TableView } from "./TableView/TableView";
 import { User } from "../../api/data.types";
+import { getData } from "../../api";
 
 interface ReusableComponentProps {
     tableView?: boolean;

@@ -12,6 +12,7 @@ import {
     Toolbar,
 } from "grommet";
 import { User } from "../../../api/data.types";
+import { AddItem } from "../Actions";
 
 const properties = {
     name: { label: "Name", search: true },
@@ -53,10 +54,13 @@ export const TableView: React.FC<TableViewProps> = ({
                 gap="large"
             >
                 <Data data={data} properties={properties}>
-                    <Toolbar>
-                        <DataSearch />
-                        <DataFilters layer />
-                    </Toolbar>
+                    <Box direction="row">
+                        <Toolbar>
+                            <DataSearch />
+                            <DataFilters layer />
+                        </Toolbar>
+                        <AddItem />
+                    </Box>
                     <DataSummary />
                     <DataTable
                         columns={columns}

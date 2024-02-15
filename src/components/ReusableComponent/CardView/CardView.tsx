@@ -13,11 +13,18 @@ import {
     Toolbar,
 } from "grommet";
 import { User } from "../../../api/data.types";
+import { AddItem } from "../Actions";
 
 interface CardGridProps {
     showPagination?: boolean;
     data: User[];
 }
+
+const properties = {
+    name: { label: "Name", search: true },
+    username: { label: "Username", search: true },
+    email: { label: "Email", search: true },
+};
 
 export const CardView: React.FC<CardGridProps> = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -26,11 +33,15 @@ export const CardView: React.FC<CardGridProps> = ({
 }) => {
     return (
         <Box pad="large" gap="medium">
-            <Data data={data}>
-                <Toolbar>
-                    <DataSearch />
-                    <DataFilters layer />
-                </Toolbar>
+            <Data data={data} properties={properties}>
+                <Box direction="row">
+                    <Toolbar>
+                        <DataSearch />
+                        <DataFilters layer />
+                    </Toolbar>
+                    <AddItem />
+                </Box>
+
                 <DataSummary />
                 <Cards size="medium">
                     {(item) => (
