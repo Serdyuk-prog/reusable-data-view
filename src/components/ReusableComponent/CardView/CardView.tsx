@@ -16,8 +16,10 @@ import { User } from "../../../api/data.types";
 import { AddItem, DeleteItem, EditItem, ShowItemButton } from "../Actions";
 
 interface CardGridProps {
-    showPagination?: boolean;
     data: User[];
+    showFilters?: boolean;
+    actionButtons?: boolean;
+    showPagination?: boolean;
 }
 
 const properties = {
@@ -27,22 +29,27 @@ const properties = {
 };
 
 export const CardView: React.FC<CardGridProps> = ({
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    showPagination = true,
+    showPagination,
+    actionButtons,
+    showFilters,
     data,
 }) => {
     return (
         <Box pad="large" gap="medium">
             <Data data={data} properties={properties}>
-                <Box direction="row">
-                    <Toolbar>
-                        <DataSearch />
-                        <DataFilters layer />
-                    </Toolbar>
-                    <AddItem />
-                </Box>
+                {showFilters && (
+                    <>
+                        <Box direction="row">
+                            <Toolbar>
+                                <DataSearch />
+                                <DataFilters layer />
+                            </Toolbar>
+                            <AddItem />
+                        </Box>
+                        <DataSummary />
+                    </>
+                )}
 
-                <DataSummary />
                 <Cards size="medium">
                     {(item) => (
                         <Card key={item.id} pad="small">
@@ -52,25 +59,29 @@ export const CardView: React.FC<CardGridProps> = ({
                                 </Heading>
                             </CardBody>
                             <CardFooter>{item.email || "--"}</CardFooter>
-                            <Box
-                                align="center"
-                                justify="end"
-                                pad="medium"
-                                direction="row"
-                                gap="medium"
-                            >
-                                <ShowItemButton user={item} />
-                                <DeleteItem user={item} />
-                                <EditItem user={item} />
-                            </Box>
+                            {actionButtons && (
+                                <Box
+                                    align="center"
+                                    justify="end"
+                                    pad="medium"
+                                    direction="row"
+                                    gap="medium"
+                                >
+                                    <ShowItemButton user={item} />
+                                    <DeleteItem user={item} />
+                                    <EditItem user={item} />
+                                </Box>
+                            )}
                         </Card>
                     )}
                 </Cards>
-                <Pagination
-                    step={5}
-                    alignSelf="center"
-                    margin={{ top: "medium" }}
-                />
+                {showPagination && (
+                    <Pagination
+                        step={5}
+                        alignSelf="center"
+                        margin={{ top: "medium" }}
+                    />
+                )}
             </Data>
         </Box>
     );

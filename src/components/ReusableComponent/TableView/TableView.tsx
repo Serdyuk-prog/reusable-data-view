@@ -12,7 +12,8 @@ import {
     Toolbar,
 } from "grommet";
 import { User } from "../../../api/data.types";
-import { AddItem } from "../Actions";
+import { AddItem, ShowItem } from "../Actions";
+import React from "react";
 
 const properties = {
     name: { label: "Name", search: true },
@@ -37,14 +38,23 @@ const columns = [
 ];
 
 interface TableViewProps {
-    showPagination?: boolean;
     data: User[];
+    showFilters?: boolean;
+    actionButtons?: boolean;
+    showPagination?: boolean;
 }
 
 export const TableView: React.FC<TableViewProps> = ({
-    showPagination = true,
     data,
+    showPagination,
+    actionButtons,
+    showFilters,
 }) => {
+    const [isModalOpen, setIsModalOpen] = React.useState<boolean | undefined>(false);
+    const [clicked, setClicked] = React.useState<User>();
+
+    const actionButton = actionButtons && <AddItem />;
+
     return (
         <Box pad="large" gap="medium">
             <Grid
@@ -54,25 +64,52 @@ export const TableView: React.FC<TableViewProps> = ({
                 gap="large"
             >
                 <Data data={data} properties={properties}>
-                    <Box direction="row">
-                        <Toolbar>
-                            <DataSearch />
-                            <DataFilters layer />
-                        </Toolbar>
-                        <AddItem />
-                    </Box>
-                    <DataSummary />
-                    <DataTable
-                        columns={columns}
-                        verticalAlign={{ body: "top" }}
-                    />
-                    <Pagination
-                        step={5}
-                        alignSelf="center"
-                        margin={{ top: "medium" }}
-                    />
+                    {showFilters && (
+                        <>
+                            <Box direction="row">
+                                <Toolbar>
+                                    <DataSearch />
+                                    <DataFilters layer />
+                                </Toolbar>
+                                {actionButton}
+                            </Box>
+                            <DataSummary />
+                        </>
+                    )}
+                    {!showFilters && (
+                        <Box
+                            direction="row"
+                            justify="center"
+                            margin={{ bottom: "small" }}
+                        >
+                            {actionButton}
+                        </Box>
+                    )}
+                    {(actionButtons && (
+                        <DataTable
+                            columns={columns}
+                            verticalAlign={{ body: "top" }}
+                            onClickRow={(event) => {
+                                setIsModalOpen(true);
+                                setClicked(event.datum);
+                            }}
+                        />
+                    )) || (
+                        <DataTable
+                            columns={columns}
+                            verticalAlign={{ body: "top" }}
+                        />
+                    )}
+                    {showPagination && (
+                        <Pagination
+                            step={5}
+                            alignSelf="center"
+                            margin={{ top: "medium" }}
+                        />
+                    )}
                 </Data>
             </Grid>
+            <ShowItem user={clicked as User} open={isModalOpen} setOpen={setIsModalOpen} />
         </Box>
     );
 };
